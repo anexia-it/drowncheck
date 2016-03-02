@@ -1,4 +1,3 @@
-deb http://httpredir.debian.org/debian squeeze main
+deb http://archive.debian.org/debian squeeze main
 deb http://httpredir.debian.org/debian squeeze-updates main
 deb http://security.debian.org squeeze/updates main
-
