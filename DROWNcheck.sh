@@ -4,10 +4,11 @@
 #
 # Authors:
 #  Thorsten Lusser <tlusser@anexia-it.com>
+#  Stephan Peijnik <speijnik@anexia-it.com>
 #
 # The MIT License (MIT)
 #
-# Copyright (c) 2014 ANEXIA Internetdienstleistungs GmbH
+# Copyright (c) 2016 ANEXIA Internetdienstleistungs GmbH
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -27,7 +28,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-VERSION=0.0.1
+VERSION=1.0.0
 HOST=$1
 PORT=${2:-443}
 
@@ -39,7 +40,7 @@ then
 fi
 
 function check_existing_ciphers() {
-	for c in "$1"
+	for c in $*
 	do
 	  if ! echo $openssl_ciphers | grep -q $c 2>&1 >/dev/null
 	  then
@@ -102,15 +103,15 @@ echo -e "\033[92mYES\033[0m"
 
 SERVER=$HOST:$PORT
 
-echo -e "\n\033[94mTesting ${SERVER} for availability of SSL ciphers which should be removed...\033[0m"
+echo -e "\n\033[94mTesting ${SERVER} for availability of SSLv2 and export ciphers...\033[0m"
 
 check_connect "${REMOVED_SSLv2_CIPHERS}"
 patched=$PATCHED
 
 if [ "$patched" == "no" ]; then
-    echo -e "\033[91mThe system need's to be patched!\033[0m"
+    echo -e "\033[91mThe system needs to be patched!\033[0m"
 else
-    echo -e "\033[92mThe system is up-to-date!\033[0m"
+    echo -e "\033[92mThe system is up-to-date.\033[0m"
 fi
 
 check_connect "${SSLv2_CIPHERS}"
@@ -118,5 +119,5 @@ sslv2_active=$PATCHED
 if [ "$sslv2_active" == "no" ]; then
     echo -e "\033[91mSSLv2 is active!\033[0m"
 else
-    echo -e "\033[92mSSLv2 is inactive!\033[0m"
+    echo -e "\033[92mSSLv2 is inactive.\033[0m"
 fi
