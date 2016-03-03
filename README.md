@@ -17,14 +17,14 @@ Usage
 Simple usage using custom docker container
 ------------------------------------------
 
-Clone this repository and build the docker image using:
+Either build this image yourself using the Dockerfile in this repository,
+or use the image available from Docker hub:
 
 ```shell
-docker build -t anexia-it:drowncheck .
+docker pull anexia/drowncheck:latest
 ```
 
-After building the image you may invoke DROWNcheck like this:
-
 ```shell
-docker run --rm=true -t -i anexia-it:drowncheck 10.0.0.2 443
+docker run --rm=true -t -i anexia/drowncheck:latest 10.0.0.2 443
+docker run --rm=true -t -i anexia/drowncheck:latest 10.0.0.2 993
 ```
